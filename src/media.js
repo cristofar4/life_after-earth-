@@ -1,52 +1,83 @@
 /**
- * Media manifest. Every visual/audio asset the site uses is declared here.
- * `null` means the asset has NOT been supplied — components render an honest
- * fallback instead of linking a broken file. See MEDIA.md for the full list.
+ * Media manifest. Real photographs and footage from Wikimedia Commons, prepared
+ * by scripts/fetch-media.py (sources: scripts/media-sources.json). Every file's
+ * author, licence and source page live in src/credits.json and are shown on the
+ * page. A missing entry resolves to `null`, and components fall back honestly.
  */
+import credits from './credits.json';
+
 const base = import.meta.env.BASE_URL;
 const m = (file) => `${base}media/${file}`;
 
+/** Responsive photo record for <img src srcset>. */
+export function photo(id, alt) {
+  const c = credits[id];
+  if (!c || !c.sizes) return null;
+  const largest = c.sizes[c.sizes.length - 1];
+  const mid = c.sizes.find((s) => s.width >= 1600) || largest;
+  return {
+    id,
+    alt,
+    src: m(mid.file),
+    full: m(largest.file),
+    srcSet: c.sizes.map((s) => `${m(s.file)} ${s.width}w`).join(', '),
+    width: largest.width,
+    height: largest.height,
+    credit: credit(id),
+  };
+}
+
+export function footage(id, alt) {
+  const c = credits[id];
+  if (!c || !c.file) return null;
+  return { id, alt, src: m(c.file), poster: m(c.poster), credit: credit(id), place: c.place, coords: c.coords, mark: c.mark };
+}
+
+export function credit(id) {
+  const c = credits[id];
+  if (!c) return null;
+  return { author: c.author, license: c.license, licenseUrl: c.licenseUrl, source: c.source, title: c.title };
+}
+
+export const allCredits = () => Object.entries(credits).map(([id, c]) => ({ id, ...credit(id) }));
+
+/** Short real clips for the "Already happening" reel. */
+export const REEL = [
+  {
+    clip: footage('reel-varosha', 'Drone footage gliding toward empty beachfront hotels in Varosha, Cyprus.'),
+    place: 'Varosha, Cyprus',
+    note: 'A resort district fenced off and left empty in 1974. Parts reopened to visitors in 2020.',
+  },
+  {
+    clip: footage('reel-chernobyl', 'An abandoned Young Pioneer camp building among pines in the Red Forest near Chernobyl.'),
+    place: 'Red Forest, Chernobyl Exclusion Zone',
+    note: 'A children’s summer camp abandoned in 1986. Pines and grass now stand where the paths were.',
+  },
+].filter((r) => r.clip);
+
 export const MEDIA = {
   hero: {
-    // Stand-in still cropped from the layout reference (see scripts/prepare-standins.py).
-    poster: m('hero-tokyo-100y-standin.webp'),
-    posterAlt:
-      'Speculative view of Tokyo a century after people: vine-covered towers rising from forest and flooded streets.',
-    // MISSING: 8–10 s seamless, muted landscape loop. Set to m('hero-tokyo-100y-loop.mp4') once supplied.
-    video: null,
-    videoWebm: null,
+    photo: photo('hero-pripyat', 'Aerial photograph of Pripyat, Ukraine: apartment blocks half-hidden by autumn forest.'),
+    // Full-frame hero footage of the same place (none exists for this view): null = still photograph.
+    video: footage('hero-loop', 'Looping footage behind the hero.'),
+    // Real fog footage keyed into a greyscale matte; layered over the photograph as moving mist.
+    fog: footage('mist-fog', ''),
   },
   mist: {
     far: m('mist-far.webp'),
     near: m('mist-near.webp'),
   },
   audio: {
-    // MISSING: recorded ambience loop. Until supplied, ambience is synthesised live (Web Audio).
+    // No recorded ambience yet: the site synthesises wind, water and birds live (Web Audio).
     ambient: null,
   },
-  chapters: {
-    bangkok: {
-      10: { src: m('chapter-01-bangkok-10y-standin.webp'), alt: 'Speculative view of a flooded Bangkok rail hall overgrown with vines, a rusting train beneath a broken glass roof.' },
-      100: null,
-      1000: null,
-    },
-    singapore: {
-      10: null,
-      100: { src: m('chapter-02-singapore-100y-standin.webp'), alt: 'Speculative view of Singapore overgrown by forest, a deer standing on a planted rooftop above the skyline.' },
-      1000: null,
-    },
-    miami: {
-      10: null,
-      100: null,
-      1000: { src: m('chapter-03-miami-1000y-standin.webp'), alt: 'Speculative view of Miami submerged in a turquoise sea, a broken causeway and tower tops breaking the surface.' },
-    },
-  },
   compare: {
-    past: null,
-    present: { src: m('compare-present-standin.webp'), alt: 'A present-day city street lined with towers.' },
-    100: { src: m('compare-100y-standin.webp'), alt: 'Speculative view of towers swallowed by forest a century later.' },
-    1000: null,
-    // The two stand-ins are NOT a matched viewpoint pair; they are halves of the reference mock-up.
-    matchedPair: false,
+    place: 'Jackson Glacier, Glacier National Park, Montana',
+    note: 'Repeat photographs taken from the same viewpoint.',
+    eras: [
+      { key: '1914', label: '1914', side: 'left', image: photo('compare-jackson-1914', 'Jackson Glacier in 1914: a broad ice field fills the valley below Mount Jackson.') },
+      { key: '2020', label: '2020', side: 'right', image: photo('compare-jackson-2020', 'The same viewpoint in 2020: the ice has retreated to small patches on bare rock.') },
+      { key: '2120', label: '2120', side: 'right', image: null, missing: 'Not yet photographed' },
+    ],
   },
 };

@@ -1,0 +1,99 @@
+[
+  {
+    "id": "hero-pripyat",
+    "title": "File:E c l i p s e - Flickr - jonhyblaze.jpg",
+    "widths": [
+      1280,
+      1920,
+      2560,
+      3840
+    ],
+    "quality": 80,
+    "thumbWidth": 3840
+  },
+  {
+    "id": "ch01-tskaltubo",
+    "title": "File:Georgia, Imereti, Tskaltubo - Санаторий Центросоюза (Медея) (Цхалтубо) WMID7140675.jpg",
+    "widths": [
+      960,
+      1440,
+      1920
+    ],
+    "thumbWidth": 1920
+  },
+  {
+    "id": "ch02-houtouwan",
+    "title": "File:Thomas was taken on 20180517 in Wuren island Zhoushan City Zhejiang Province S8A0593- 1.png",
+    "widths": [
+      960,
+      1440,
+      1920
+    ],
+    "thumbWidth": 1920
+  },
+  {
+    "id": "ch03-tikal",
+    "title": "File:Jungle around Tikal, Guatemala (9422777885).jpg",
+    "widths": [
+      960,
+      1600,
+      2560,
+      3840
+    ],
+    "thumbWidth": 3840
+  },
+  {
+    "id": "compare-jackson-1914",
+    "title": "File:Jackson Glacier and Mount Jackson in 1914 (54209695843).jpg",
+    "widths": [
+      800,
+      1200
+    ],
+    "thumbWidth": 1920
+  },
+  {
+    "id": "compare-jackson-2020",
+    "title": "File:Jackson Glacier and Mount Jackson in 2020 (54208559982).jpg",
+    "widths": [
+      800,
+      1200
+    ],
+    "thumbWidth": 1920
+  },
+  {
+    "id": "mist-fog",
+    "type": "video",
+    "title": "File:Morning Fog on Lake BRoll 10s.webm",
+    "transcode": "1080p.vp9.webm",
+    "start": 0.2,
+    "duration": 8,
+    "fade": 1.6,
+    "matte": true,
+    "width": 1920
+  },
+  {
+    "id": "reel-varosha",
+    "type": "video",
+    "title": "File:Varosha, Famagusta, Cyprus - Abandoned city drone footage.webm",
+    "transcode": "720p.vp9.webm",
+    "start": 50.2,
+    "duration": 8,
+    "fade": 0.8,
+    "width": 1280,
+    "place": "Varosha, Famagusta, Cyprus",
+    "pingpong": true,
+    "crop": 0.94
+  },
+  {
+    "id": "reel-chernobyl",
+    "type": "video",
+    "title": "File:Radioactive Young Pioneer camp nestled in Chernobyl's \"Red Forest\".webm",
+    "transcode": "720p.vp9.webm",
+    "start": 0.3,
+    "duration": 6,
+    "fade": 1.2,
+    "width": 1280,
+    "place": "Red Forest, Chernobyl Exclusion Zone, Ukraine",
+    "stabilize": true
+  }
+]

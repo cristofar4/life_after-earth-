@@ -6,6 +6,7 @@ import Hero from './components/Hero.jsx';
 import Chapters from './components/Chapters.jsx';
 import ChapterOverlay from './components/ChapterOverlay.jsx';
 import Comparison from './components/Comparison.jsx';
+import Footage from './components/Footage.jsx';
 import About from './components/About.jsx';
 
 function Site() {
@@ -49,6 +50,7 @@ function Site() {
       <main inert={open !== null ? '' : undefined}>
         <Hero onEnter={() => navigate('chapters')} />
         <Chapters onOpen={setOpen} stripRefs={stripRefs} />
+        <Footage />
         <Comparison />
         <About onNavigate={navigate} />
       </main>

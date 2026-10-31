@@ -2,7 +2,8 @@
 
 A cinematic, responsive field guide to cities reclaimed by nature after people
 disappear. Built with React, Vite and GSAP (ScrollTrigger + ScrollTo).
-All future scenes are speculative imagery.
+The futures are imagined; the photographs and footage are real places today,
+credited on the page.
 
 ```bash
 npm install
@@ -15,7 +16,7 @@ npm run preview  # serve the build
 
 | Path | What it does |
 | --- | --- |
-| `src/media.js` | Media manifest — single source of truth for every asset (and what's missing). |
+| `src/media.js` | Media manifest built from `src/credits.json` (responsive `srcset`, credits, what's missing). |
 | `src/content.js` | Chapters, eras and narratives. |
 | `src/lib/gsap.js` | Plugin registration and the shared motion system (durations/eases). |
 | `src/lib/ambientAudio.js` | Web Audio engine: plays a supplied loop, or synthesises wind/water/birds; exposes an analyser for the waveforms. |
@@ -24,6 +25,8 @@ npm run preview  # serve the build
 | `src/components/Chapters.jsx` | Unfolding panoramic strips with inner parallax and hover expansion. |
 | `src/components/ChapterOverlay.jsx` | Strip image → fullscreen transition, era timeline, prev/next, focus trap, Escape, scroll restore. |
 | `src/components/Comparison.jsx` | Circular reveal and draggable/keyboard comparison slider with honest era controls. |
+| `src/components/Footage.jsx` | “It has already begun”: a real-footage reel that plays only on screen and obeys the motion control. |
+| `scripts/fetch-media.py`, `scripts/align-pair.py` | Fetch, credit and optimise the real media; align the repeat-photography pair. |
 
 ## Motion system
 
@@ -37,6 +40,6 @@ npm run preview  # serve the build
 
 ## Media
 
-See [MEDIA.md](MEDIA.md). The hero video and recorded ambience have **not** been
-supplied; the hero currently uses a temporary still-image fallback (slow drift +
-two separate mist layers), which is not a fully animated environment.
+Real photographs and footage from Wikimedia Commons, fetched and optimised by
+`scripts/fetch-media.py` (see [MEDIA.md](MEDIA.md) for sources, licences and how to
+change them). Credits render from `src/credits.json`.

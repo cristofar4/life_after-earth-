@@ -9,7 +9,7 @@ const FOCUSABLE = 'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"
 /** Geometry of a strip's visible image, as seen on screen right now. */
 function stripGeometry(strip) {
   const frame = strip.querySelector('.strip__frame');
-  const img = strip.querySelector('.strip__img');
+  const img = strip.querySelector('.strip__img') || frame;
   const fr = frame.getBoundingClientRect();
   const ir = img.getBoundingClientRect();
   const pts = [...getComputedStyle(frame).clipPath.matchAll(/(-?[\d.]+)%\s+(-?[\d.]+)%/g)].map((m) => [
@@ -31,11 +31,6 @@ const fullClip = () => {
 };
 const fullRect = () => ({ left: 0, top: 0, width: window.innerWidth, height: window.innerHeight });
 
-/** The image actually shown for a chapter+era: only supplied assets, never a fake. */
-const shownImage = (chapter, era) => {
-  const exact = chapter.media[era];
-  return exact ? { ...exact, era, exact: true } : { ...chapter.media[chapter.era], era: chapter.era, exact: false };
-};
 
 export default function ChapterOverlay({ startIndex, getStrip, onClosed, reducedMotion }) {
   const [current, setCurrent] = useState(startIndex);
@@ -50,7 +45,7 @@ export default function ChapterOverlay({ startIndex, getStrip, onClosed, reduced
   const scrollY = useRef(window.scrollY);
 
   const chapter = CHAPTERS[current];
-  const shown = shownImage(chapter, era);
+  const [settled, setSettled] = useState(false);
   const eraInfo = ERAS.find((e) => e.key === era);
   const items = () => contentRef.current.querySelectorAll('[data-ov]');
 
@@ -73,6 +68,7 @@ export default function ChapterOverlay({ startIndex, getStrip, onClosed, reduced
     const done = () => {
       gsap.set(boxRef.current, { clearProps: 'left,top,width,height,clipPath' });
       busy.current = false;
+      setSettled(true);
       closeRef.current?.focus({ preventScroll: true });
     };
     if (reducedMotion) {
@@ -106,6 +102,7 @@ export default function ChapterOverlay({ startIndex, getStrip, onClosed, reduced
   const close = useCallback(() => {
     if (busy.current) return;
     busy.current = true;
+    setSettled(false);
     if (era !== CHAPTERS[current].era) firstEra.current = true;
     setEra(CHAPTERS[current].era); // return to the image the strip shows
     const strip = getStrip(current);
@@ -204,21 +201,37 @@ export default function ChapterOverlay({ startIndex, getStrip, onClosed, reduced
   return (
     <div className="overlay" ref={rootRef} role="dialog" aria-modal="true" aria-labelledby="ov-title" tabIndex={-1}>
       <div className="overlay__backdrop" ref={backdropRef} />
-      <div className="overlay__box" ref={boxRef} data-era={shown.era}>
-        {CHAPTERS.flatMap((c) =>
-          ERAS.filter((e) => c.media[e.key]).map((e) => {
-            const active = c.id === chapter.id && shown.era === e.key;
-            return (
-              <img
-                key={`${c.id}-${e.key}`}
-                className={`overlay__img ${active ? 'is-active' : ''}`}
-                src={c.media[e.key].src}
-                alt={active ? c.media[e.key].alt : ''}
-                aria-hidden={!active}
-                decoding="async"
-              />
-            );
-          })
+      <div className="overlay__box" ref={boxRef} data-era={chapter.era}>
+        {CHAPTERS.map((c) => {
+          if (!c.image) return null;
+          const active = c.id === chapter.id;
+          return (
+            <img
+              key={c.id}
+              className={`overlay__img ${active ? 'is-active' : ''}`}
+              src={c.image.src}
+              srcSet={c.image.srcSet}
+              sizes="100vw"
+              alt={active ? c.image.alt : ''}
+              aria-hidden={!active}
+              decoding="async"
+              style={{ objectPosition: c.focus }}
+            />
+          );
+        })}
+        {chapter.video && !reducedMotion && settled && (
+          <video
+            key={chapter.id}
+            className="overlay__video"
+            src={chapter.video.src}
+            poster={chapter.video.poster}
+            muted
+            loop
+            playsInline
+            autoPlay
+            aria-hidden="true"
+            onPlaying={(e) => e.currentTarget.classList.add('is-on')}
+          />
         )}
         <div className="overlay__haze" aria-hidden="true" />
         <div className="overlay__shade" aria-hidden="true" />
@@ -227,7 +240,7 @@ export default function ChapterOverlay({ startIndex, getStrip, onClosed, reduced
       <div className="overlay__content" ref={contentRef}>
         <div className="overlay__top">
           <p className="mono" data-ov>
-            Chapter {chapter.number} / 0{CHAPTERS.length} <span className="sep">·</span> Speculative view
+            Chapter {chapter.number} / 0{CHAPTERS.length} <span className="sep">·</span> Imagined future, real place
           </p>
           <button type="button" className="close" ref={closeRef} onClick={close} data-ov>
             <span className="mono ul" {...underlineHandlers}>Close</span>
@@ -257,21 +270,35 @@ export default function ChapterOverlay({ startIndex, getStrip, onClosed, reduced
             <p className="overlay__narrative" data-ov>
               <span data-era-sync>{chapter.narrative[era]}</span>
             </p>
-            {!shown.exact && (
-              <p className="overlay__notice mono" data-era-sync>
-                No matching {eraInfo.label} view of {chapter.location} has been supplied. The image still shows{' '}
-                {ERAS.find((e) => e.key === shown.era).label}.
-              </p>
-            )}
+            <p className="overlay__seen" data-ov>
+              {chapter.seen}
+              {chapter.image?.credit && (
+                <span className="overlay__credit mono">
+                  Photo{' '}
+                  <a href={chapter.image.credit.source} target="_blank" rel="noopener noreferrer" className="ul" {...underlineHandlers}>
+                    {chapter.image.credit.author}
+                  </a>{' '}
+                  · {chapter.image.credit.license}
+                  {chapter.video?.credit && (
+                    <>
+                      {' '}· Footage{' '}
+                      <a href={chapter.video.credit.source} target="_blank" rel="noopener noreferrer" className="ul" {...underlineHandlers}>
+                        {chapter.video.credit.author}
+                      </a>{' '}
+                      · {chapter.video.credit.license}
+                    </>
+                  )}
+                </span>
+              )}
+            </p>
           </div>
 
           <div className="overlay__controls">
-            <div className="timeline" role="group" aria-label="Time period" onKeyDown={onTimelineKey} data-ov>
+            <div className="timeline" role="group" aria-label="Imagined time period" onKeyDown={onTimelineKey} data-ov>
               <span className="timeline__track" aria-hidden="true">
                 <span className="timeline__fill" style={{ transform: `scaleX(${eraIndex / (ERAS.length - 1)})` }} />
               </span>
               {ERAS.map((e) => {
-                const supplied = Boolean(chapter.media[e.key]);
                 return (
                   <button
                     key={e.key}
@@ -286,7 +313,6 @@ export default function ChapterOverlay({ startIndex, getStrip, onClosed, reduced
                       <span className="timeline__long">{e.label}</span>
                       <span className="timeline__short">{e.short}</span>
                     </span>
-                    <span className="mono timeline__src">{supplied ? 'image' : 'text only'}</span>
                   </button>
                 );
               })}

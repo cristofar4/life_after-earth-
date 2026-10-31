@@ -5,6 +5,7 @@ import HeroScene from './HeroScene.jsx';
 import SoundPlayer from './SoundPlayer.jsx';
 import Arrow from './Arrow.jsx';
 import { underlineHandlers } from './Underline.jsx';
+import { HERO } from '../content.js';
 
 export default function Hero({ onEnter }) {
   const root = useRef(null);
@@ -84,11 +85,18 @@ export default function Hero({ onEnter }) {
 
         <div className="details">
           <p className="mono details__coords" data-intro="detail">
-            35.6762° N<br />139.6503° E<br />
-            <span className="details__place">Tokyo, Japan</span>
+            {HERO.coords[0]}<br />{HERO.coords[1]}<br />
+            <span className="details__place">{HERO.place}</span>
             <span className="rule" aria-hidden="true" />
           </p>
-          <p className="mono details__tag" data-intro="detail">Speculative view</p>
+          <p className="mono details__tag" data-intro="detail">
+            <span className="details__kind">{HERO.kind}</span>
+            {HERO.credit && (
+              <a className="details__credit ul" href={HERO.credit.source} target="_blank" rel="noopener noreferrer" {...underlineHandlers}>
+                {HERO.credit.author} · {HERO.credit.license}
+              </a>
+            )}
+          </p>
           <div className="year-mark" data-intro="detail">
             <svg className="year-mark__ring" viewBox="0 0 100 100" aria-hidden="true">
               <circle cx="50" cy="50" r="47" />
@@ -96,7 +104,7 @@ export default function Hero({ onEnter }) {
                 <circle className="year-mark__dot" cx="50" cy="3" r="2.6" />
               </g>
             </svg>
-            <span className="mono">100<br />years<br />later</span>
+            <span className="mono">{HERO.mark[0]}<br />{HERO.mark[1]}<br />{HERO.mark[2]}</span>
           </div>
           <div className="details__foot" data-intro="detail">
             <p className="mono">

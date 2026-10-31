@@ -1,0 +1,204 @@
+{
+  "hero-pripyat": {
+    "title": "E c l i p s e - Flickr - jonhyblaze.jpg",
+    "author": "A . from Antarctica",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:E_c_l_i_p_s_e_-_Flickr_-_jonhyblaze.jpg",
+    "gps": [
+      51.402632,
+      30.055868
+    ],
+    "sizes": [
+      {
+        "file": "hero-pripyat-1280.webp",
+        "width": 1280,
+        "height": 853
+      },
+      {
+        "file": "hero-pripyat-1920.webp",
+        "width": 1920,
+        "height": 1280
+      },
+      {
+        "file": "hero-pripyat-2560.webp",
+        "width": 2560,
+        "height": 1707
+      },
+      {
+        "file": "hero-pripyat-3840.webp",
+        "width": 3840,
+        "height": 2560
+      }
+    ],
+    "aspect": 1.5
+  },
+  "ch01-tskaltubo": {
+    "title": "Georgia, Imereti, Tskaltubo - Санаторий Центросоюза (Медея) (Цхалтубо) WMID7140675.jpg",
+    "author": "Yarkolp",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Georgia,_Imereti,_Tskaltubo_-_%D0%A1%D0%B0%D0%BD%D0%B0%D1%82%D0%BE%D1%80%D0%B8%D0%B9_%D0%A6%D0%B5%D0%BD%D1%82%D1%80%D0%BE%D1%81%D0%BE%D1%8E%D0%B7%D0%B0_(%D0%9C%D0%B5%D0%B4%D0%B5%D1%8F)_(%D0%A6%D1%85%D0%B0%D0%BB%D1%82%D1%83%D0%B1%D0%BE)_WMID7140675.jpg",
+    "gps": [
+      42.322013,
+      42.592159
+    ],
+    "sizes": [
+      {
+        "file": "ch01-tskaltubo-960.webp",
+        "width": 960,
+        "height": 638
+      },
+      {
+        "file": "ch01-tskaltubo-1440.webp",
+        "width": 1440,
+        "height": 957
+      },
+      {
+        "file": "ch01-tskaltubo-1920.webp",
+        "width": 1920,
+        "height": 1276
+      }
+    ],
+    "aspect": 1.5047
+  },
+  "ch02-houtouwan": {
+    "title": "Thomas was taken on 20180517 in Wuren island Zhoushan City Zhejiang Province S8A0593- 1.png",
+    "author": "Thomas Chu",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Thomas_was_taken_on_20180517_in_Wuren_island_Zhoushan_City_Zhejiang_Province_S8A0593-_1.png",
+    "gps": null,
+    "sizes": [
+      {
+        "file": "ch02-houtouwan-960.webp",
+        "width": 960,
+        "height": 640
+      },
+      {
+        "file": "ch02-houtouwan-1440.webp",
+        "width": 1440,
+        "height": 960
+      },
+      {
+        "file": "ch02-houtouwan-1920.webp",
+        "width": 1920,
+        "height": 1280
+      }
+    ],
+    "aspect": 1.5
+  },
+  "ch03-tikal": {
+    "title": "Jungle around Tikal, Guatemala (9422777885).jpg",
+    "author": "Jeanne Menjoulet from Paris, France",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jungle_around_Tikal,_Guatemala_(9422777885).jpg",
+    "gps": [
+      17.221433,
+      -89.622173
+    ],
+    "sizes": [
+      {
+        "file": "ch03-tikal-960.webp",
+        "width": 960,
+        "height": 597
+      },
+      {
+        "file": "ch03-tikal-1600.webp",
+        "width": 1600,
+        "height": 995
+      },
+      {
+        "file": "ch03-tikal-2560.webp",
+        "width": 2560,
+        "height": 1593
+      },
+      {
+        "file": "ch03-tikal-3840.webp",
+        "width": 3840,
+        "height": 2389
+      }
+    ],
+    "aspect": 1.6074
+  },
+  "compare-jackson-1914": {
+    "title": "Jackson Glacier and Mount Jackson in 1914 (54209695843).jpg",
+    "author": "GlacierNPS",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "source": "https://commons.wikimedia.org/wiki/File:Jackson_Glacier_and_Mount_Jackson_in_1914_(54209695843).jpg",
+    "gps": null,
+    "sizes": [
+      {
+        "file": "compare-jackson-1914-800.webp",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "file": "compare-jackson-1914-1200.webp",
+        "width": 1200,
+        "height": 1200
+      }
+    ],
+    "aspect": 1.0,
+    "aligned": true
+  },
+  "compare-jackson-2020": {
+    "title": "Jackson Glacier and Mount Jackson in 2020 (54208559982).jpg",
+    "author": "GlacierNPS",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "source": "https://commons.wikimedia.org/wiki/File:Jackson_Glacier_and_Mount_Jackson_in_2020_(54208559982).jpg",
+    "gps": null,
+    "sizes": [
+      {
+        "file": "compare-jackson-2020-800.webp",
+        "width": 800,
+        "height": 800
+      },
+      {
+        "file": "compare-jackson-2020-1200.webp",
+        "width": 1200,
+        "height": 1200
+      }
+    ],
+    "aspect": 1.0,
+    "aligned": true
+  },
+  "mist-fog": {
+    "title": "Morning Fog on Lake BRoll 10s.webm",
+    "author": "Alabama Extension",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Morning_Fog_on_Lake_BRoll_10s.webm",
+    "gps": null,
+    "file": "mist-fog.mp4",
+    "poster": "mist-fog-poster.webp",
+    "duration": 8
+  },
+  "reel-varosha": {
+    "title": "Varosha, Famagusta, Cyprus - Abandoned city drone footage.webm",
+    "author": "The Track Record - BTS",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Varosha,_Famagusta,_Cyprus_-_Abandoned_city_drone_footage.webm",
+    "gps": null,
+    "place": "Varosha, Famagusta, Cyprus",
+    "file": "reel-varosha.mp4",
+    "poster": "reel-varosha-poster.webp",
+    "duration": 8
+  },
+  "reel-chernobyl": {
+    "title": "Radioactive Young Pioneer camp nestled in Chernobyl's \"Red Forest\".webm",
+    "author": "Carl Willis",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Radioactive_Young_Pioneer_camp_nestled_in_Chernobyl%27s_%22Red_Forest%22.webm",
+    "gps": null,
+    "place": "Red Forest, Chernobyl Exclusion Zone, Ukraine",
+    "file": "reel-chernobyl.mp4",
+    "poster": "reel-chernobyl-poster.webp",
+    "duration": 6
+  }
+}

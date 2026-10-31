@@ -48,12 +48,12 @@ export default function Chapters({ onOpen, stripRefs }) {
       <div className="chapters__head">
         <h2 id="chapters-title" className="mono">Three moments in a longer story</h2>
         <p className="mono chapters__hint">
-          <span className="hide-touch">Hover to look closer · </span>Select a chapter to enter it
+          Imagined eras · real places<span className="hide-touch"> · hover to look closer</span>
         </p>
       </div>
       <ol className="strips">
         {CHAPTERS.map((c, i) => {
-          const img = c.media[c.era];
+          const img = c.image;
           return (
             <li
               key={c.id}
@@ -66,13 +66,24 @@ export default function Chapters({ onOpen, stripRefs }) {
                 className="strip__btn"
                 onClick={() => onOpen(i)}
                 aria-haspopup="dialog"
-                aria-label={`Chapter ${c.number}: ${c.title}. ${eraLabel(c.era)}, ${c.location}. Explore chapter`}
+                aria-label={`Chapter ${c.number}: ${c.title}, ${eraLabel(c.era)}. Photographed today in ${c.location}. Explore chapter`}
               >
                 <span className="strip__frame">
                   <span className="strip__mask">
                     <span className="strip__parallax">
                       <span className="strip__media">
-                        <img className="strip__img" src={img.src} alt="" loading="lazy" decoding="async" width="1800" height="300" />
+                        {img && (
+                          <img
+                            className="strip__img"
+                            src={img.src}
+                            srcSet={img.srcSet}
+                            sizes="(max-width: 899px) 100vw, 95vw"
+                            alt=""
+                            loading="lazy"
+                            decoding="async"
+                            style={{ objectPosition: c.focus }}
+                          />
+                        )}
                       </span>
                     </span>
                     <span className="strip__shade" />
@@ -95,7 +106,7 @@ export default function Chapters({ onOpen, stripRefs }) {
                 <span className="strip__meta mono" aria-hidden="true">
                   <span className="strip__loc">
                     <span className="rule" />
-                    {c.location}
+                    <span className="strip__today">Today</span> {c.location}
                   </span>
                   <span className="strip__coords">
                     {c.coords[0]}
